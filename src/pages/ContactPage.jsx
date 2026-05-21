@@ -1,7 +1,15 @@
-import { Mail } from "lucide-react";
+import { FileText, Mail, Network, Send } from "lucide-react";
 import Badge from "../components/ui/Badge.jsx";
 import Button from "../components/ui/Button.jsx";
 import SectionHeader from "../components/ui/SectionHeader.jsx";
+import { profile } from "../data/profile.js";
+
+const contactIcons = {
+  Email: Mail,
+  CV: FileText,
+  GitHub: Network,
+  LinkedIn: Send,
+};
 
 function ContactPage() {
   return (
@@ -11,23 +19,45 @@ function ContactPage() {
           <Badge variant="cyan">Contacto</Badge>
           <SectionHeader
             title="Hablemos de proyectos, colaboración y oportunidades"
-            description="Esta sección centralizará vías de contacto, CV y perfiles profesionales en próximas fases."
+            description={profile.contactIntro}
           />
           <div className="mt-8 flex flex-wrap gap-3">
             <Button variant="primary" icon={Mail}>
               Contactar
             </Button>
-            <Button variant="secondary">Descargar CV</Button>
+            <Button variant="secondary" icon={FileText}>
+              Descargar CV
+            </Button>
           </div>
         </div>
         <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6">
           <h2 className="text-xl font-semibold text-white">
-            Perfil disponible
+            Canales profesionales
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-400">
-            Bloque preparado para enlaces profesionales, email y futuras vías
-            de contacto.
+            Accesos visuales preparados para conectar email, CV y perfiles
+            profesionales cuando existan URLs definitivas.
           </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {profile.contactOptions.map((option) => {
+              const Icon = contactIcons[option.label] ?? Mail;
+
+              return (
+                <div
+                  key={option.label}
+                  className="rounded-xl border border-slate-700 bg-slate-950/50 p-4"
+                >
+                  <Icon size={20} className="text-cyan-300" />
+                  <p className="mt-3 font-semibold text-white">
+                    {option.label}
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-slate-400">
+                    {option.value}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </article>
       </section>
     </main>

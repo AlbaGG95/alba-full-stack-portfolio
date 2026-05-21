@@ -1,8 +1,10 @@
 import { Search } from "lucide-react";
+import ProjectCard from "../components/portfolio/ProjectCard.jsx";
 import Badge from "../components/ui/Badge.jsx";
 import SectionHeader from "../components/ui/SectionHeader.jsx";
+import { projects } from "../data/projects.js";
 
-const projects = ["Portfolio profesional", "Blog técnico", "Panel administrable"];
+const categories = ["Todos", "Portfolio", "Frontend", "Full Stack"];
 
 function ProjectsPage() {
   return (
@@ -13,7 +15,7 @@ function ProjectsPage() {
             <Badge variant="cyan">Proyectos</Badge>
             <SectionHeader
               title="Proyectos con enfoque Full Stack"
-              description="Próximamente se mostrarán proyectos con contexto, tecnologías, decisiones técnicas y resultado visual."
+              description="Selección local de proyectos que combinan estructura frontend, criterio visual, diseño UI y fundamentos backend."
             />
           </div>
           <div className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-500 lg:w-80">
@@ -21,19 +23,25 @@ function ProjectsPage() {
             <span>Buscar proyectos...</span>
           </div>
         </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {projects.map((project) => (
-            <article
-              key={project}
-              className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-5"
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {categories.map((category, index) => (
+            <span
+              key={category}
+              className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                index === 0
+                  ? "border-cyan-300 bg-cyan-300 text-[#081020]"
+                  : "border-slate-700 bg-slate-950/60 text-slate-300"
+              }`}
             >
-              <div className="mb-5 h-32 rounded-xl bg-[radial-gradient(circle_at_30%_30%,rgba(34,211,238,0.24),transparent_34%),#111827]"></div>
-              <h2 className="text-lg font-semibold text-white">{project}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                Card placeholder preparada para contenido real en una fase
-                posterior.
-              </p>
-            </article>
+              {category}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
       </section>
