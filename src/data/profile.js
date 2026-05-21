@@ -1,33 +1,34 @@
 export const profile = {
   name: "Alba",
   role: "Desarrolladora Full Stack",
-  headline: "Construyo productos web con sensibilidad por el diseño.",
+  headline:
+    "Convierto proyectos técnicos en productos web con sensibilidad por el diseño.",
   summary:
-    "Portfolio profesional y blog técnico donde conecto frontend, backend, experiencia de usuario y criterio visual para crear interfaces limpias, funcionales y escalables.",
+    "Desarrolladora Full Stack en formación con foco en React, JavaScript, Tailwind CSS, Java, Spring Boot, MySQL, APIs REST, diseño UI/UX, Figma y documentación técnica.",
   bio: [
-    "Alba es una desarrolladora Full Stack en formación avanzada, enfocada en construir aplicaciones web claras, mantenibles y visualmente cuidadas.",
-    "Su perfil combina React, JavaScript, frontend moderno, fundamentos backend, APIs, diseño UI y Figma para trabajar con una visión completa del producto digital.",
-    "Este portfolio reúne proyectos, habilidades, experiencia y artículos técnicos para mostrar evolución, criterio y capacidad de construir soluciones reales.",
+    "Alba es una desarrolladora Full Stack en formación con experiencia práctica en proyectos de bootcamp y portfolio profesional.",
+    "Su perfil combina frontend con React, backend con Java/Spring Boot, APIs REST, CRUDs completos, Tailwind CSS, diseño UI/UX, Figma y documentación técnica.",
+    "Su objetivo es convertir proyectos de aprendizaje en piezas profesionales de portfolio que comuniquen criterio visual, producto, integración frontend-backend y evolución técnica real.",
   ],
   focusAreas: [
     {
-      title: "Frontend limpio",
+      title: "Frontend con React",
       description:
-        "Interfaces responsivas, accesibles y bien estructuradas con React, JavaScript y Tailwind CSS.",
+        "Interfaces responsivas, accesibles y bien estructuradas con React, JavaScript, React Router y Tailwind CSS.",
     },
     {
-      title: "Pensamiento Full Stack",
+      title: "Backend y APIs REST",
       description:
-        "Comprensión de APIs, datos, backend y flujos completos para conectar interfaz y lógica de aplicación.",
+        "Base Full Stack con Java, Spring Boot, MySQL, arquitectura por capas, CRUDs y servicios API centralizados.",
     },
     {
-      title: "Diseño UI y Figma",
+      title: "Diseño UI, Figma y producto",
       description:
-        "Criterio visual, jerarquía, prototipado y sistemas de componentes con sensibilidad de producto.",
+        "Criterio visual, documentación, presentaciones y sistemas temáticos para vender proyectos como productos reales.",
     },
   ],
   contactIntro:
-    "Abierta a conversaciones sobre prácticas, colaboración, proyectos frontend/full stack y oportunidades donde aportar criterio técnico y visual.",
+    "Abierta a conversaciones sobre prácticas, colaboración, proyectos frontend/full stack y oportunidades donde aportar criterio técnico, visual y de producto.",
   contactOptions: [
     { label: "Email", value: "Contacto profesional" },
     { label: "CV", value: "Disponible próximamente" },
