@@ -5,7 +5,7 @@ import { experienceItems } from "../data/experience.js";
 
 function ExperiencePage() {
   return (
-    <main className="px-5 py-16 lg:px-8">
+    <main className="px-5 py-14 lg:px-8 lg:py-16">
       <section className="mx-auto max-w-7xl">
         <Badge variant="pink">Experiencia</Badge>
         <SectionHeader

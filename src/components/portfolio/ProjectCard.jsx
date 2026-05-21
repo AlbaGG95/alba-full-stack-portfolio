@@ -2,15 +2,15 @@ import Badge from "../ui/Badge.jsx";
 
 function ProjectCard({ project }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-900/70 shadow-xl shadow-slate-950/30 transition hover:-translate-y-1 hover:border-cyan-300/40">
-      <div className={`h-40 ${project.imageStyle}`}>
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-900/70 shadow-xl shadow-slate-950/30 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/40 hover:shadow-cyan-950/20">
+      <div className={`h-36 sm:h-40 ${project.imageStyle}`}>
         <div className="flex h-full items-end p-4">
           <Badge variant={project.featured ? "cyan" : "violet"}>
             {project.status}
           </Badge>
         </div>
       </div>
-      <div className="p-5">
+      <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">

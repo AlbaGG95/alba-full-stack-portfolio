@@ -13,7 +13,7 @@ const contactIcons = {
 
 function ContactPage() {
   return (
-    <main className="px-5 py-16 lg:px-8">
+    <main className="px-5 py-14 lg:px-8 lg:py-16">
       <section className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.8fr]">
         <div>
           <Badge variant="cyan">Contacto</Badge>
@@ -30,7 +30,7 @@ function ContactPage() {
             </Button>
           </div>
         </div>
-        <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6">
+        <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20 lg:p-7">
           <h2 className="text-xl font-semibold text-white">
             Canales profesionales
           </h2>
@@ -45,7 +45,7 @@ function ContactPage() {
               return (
                 <div
                   key={option.label}
-                  className="rounded-xl border border-slate-700 bg-slate-950/50 p-4"
+                  className="rounded-xl border border-slate-700 bg-slate-950/50 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-cyan-300/30"
                 >
                   <Icon size={20} className="text-cyan-300" />
                   <p className="mt-3 font-semibold text-white">

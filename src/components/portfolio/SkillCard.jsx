@@ -6,7 +6,7 @@ const accentClasses = {
 
 function SkillCard({ group, icon: Icon }) {
   return (
-    <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20">
+    <article className="h-full rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/30">
       <div
         className={`grid h-12 w-12 place-items-center rounded-xl border ${accentClasses[group.accent]}`}
       >

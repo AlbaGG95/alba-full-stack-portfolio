@@ -8,7 +8,7 @@ const categories = ["Todos", "Portfolio", "Frontend", "Full Stack"];
 
 function ProjectsPage() {
   return (
-    <main className="px-5 py-16 lg:px-8">
+    <main className="px-5 py-14 lg:px-8 lg:py-16">
       <section className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
@@ -18,7 +18,7 @@ function ProjectsPage() {
               description="Selección local de proyectos que combinan estructura frontend, criterio visual, diseño UI y fundamentos backend."
             />
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-500 lg:w-80">
+          <div className="flex w-full items-center gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-500 shadow-lg shadow-slate-950/20 lg:w-80">
             <Search size={16} />
             <span>Buscar proyectos...</span>
           </div>
@@ -28,7 +28,7 @@ function ProjectsPage() {
           {categories.map((category, index) => (
             <span
               key={category}
-              className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+              className={`rounded-full border px-3 py-1 text-xs font-semibold shadow-lg shadow-slate-950/10 ${
                 index === 0
                   ? "border-cyan-300 bg-cyan-300 text-[#081020]"
                   : "border-slate-700 bg-slate-950/60 text-slate-300"

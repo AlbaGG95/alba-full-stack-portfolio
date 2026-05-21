@@ -7,7 +7,7 @@ const variants = {
 function Badge({ children, variant = "cyan" }) {
   return (
     <span
-      className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${variants[variant]}`}
+      className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide shadow-lg shadow-slate-950/20 backdrop-blur ${variants[variant]}`}
     >
       {children}
     </span>

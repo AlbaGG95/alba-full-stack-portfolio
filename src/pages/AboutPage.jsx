@@ -11,7 +11,7 @@ const profileHighlights = [
 
 function AboutPage() {
   return (
-    <main className="px-5 py-16 lg:px-8">
+    <main className="px-5 py-14 lg:px-8 lg:py-16">
       <section className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <Badge variant="cyan">Sobre mí</Badge>
@@ -20,7 +20,7 @@ function AboutPage() {
             description="Un perfil en evolución que conecta implementación, diseño, comunicación y pensamiento de producto."
           />
         </div>
-        <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/30">
+        <article className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/30 lg:p-7">
           <div className="grid h-12 w-12 place-items-center rounded-xl border border-pink-300/30 bg-pink-300/10 text-pink-200">
             <Palette size={24} />
           </div>
@@ -42,7 +42,7 @@ function AboutPage() {
           return (
             <article
               key={highlight.label}
-              className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6"
+              className="h-full rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/30"
             >
               <Icon size={24} className="text-cyan-300" />
               <h2 className="mt-5 text-lg font-semibold text-white">
