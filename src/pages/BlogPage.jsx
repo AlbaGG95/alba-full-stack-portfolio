@@ -1,5 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FileText, Search } from "lucide-react";
+import { normalizeCategories, normalizePosts } from "../api/blogMappers.js";
+import { getCategories } from "../api/categoryService.js";
+import { getPosts } from "../api/postService.js";
 import BlogCard from "../components/blog/BlogCard.jsx";
 import BlogCategoryFilter from "../components/blog/BlogCategoryFilter.jsx";
 import Badge from "../components/ui/Badge.jsx";
@@ -10,17 +13,60 @@ import { blogPosts } from "../data/blogPosts.js";
 function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [posts, setPosts] = useState(blogPosts);
+  const [categories, setCategories] = useState(blogCategories);
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiError, setApiError] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadBlogData = async () => {
+      try {
+        setIsLoading(true);
+        setApiError(null);
+
+        const [postsResponse, categoriesResponse] = await Promise.all([
+          getPosts(),
+          getCategories(),
+        ]);
+        const normalizedCategories = normalizeCategories(categoriesResponse);
+        const normalizedPosts = normalizePosts(postsResponse, normalizedCategories);
+
+        if (isMounted) {
+          setCategories(normalizedCategories.length > 1 ? normalizedCategories : blogCategories);
+          setPosts(normalizedPosts.length > 0 ? normalizedPosts : blogPosts);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setApiError(error);
+          setCategories(blogCategories);
+          setPosts(blogPosts);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadBlogData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categoryMap = useMemo(
     () =>
-      blogCategories.reduce((categories, category) => {
-        categories[category.id] = category;
-        return categories;
+      categories.reduce((mappedCategories, category) => {
+        mappedCategories[category.id] = category;
+        return mappedCategories;
       }, {}),
-    [],
+    [categories],
   );
 
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = posts.filter((post) => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
     const matchesCategory =
       activeCategory === "all" || post.categoryId === activeCategory;
@@ -41,7 +87,7 @@ function BlogPage() {
             <Badge variant="violet">Blog técnico</Badge>
             <SectionHeader
               title="Notas sobre React, Full Stack, diseño UI y producto"
-              description="Artículos mock para explicar decisiones, aprendizajes y procesos reales del portfolio antes de conectar la API del bootcamp."
+              description="Artículos para explicar decisiones, aprendizajes y procesos reales del portfolio conectados a la API del bootcamp con fallback local."
             />
           </div>
           <label className="flex w-full items-center gap-3 rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-400 shadow-lg shadow-slate-950/20 transition focus-within:border-cyan-300/60 focus-within:ring-2 focus-within:ring-cyan-300/20 lg:w-96">
@@ -59,19 +105,35 @@ function BlogPage() {
 
         <div className="mt-8">
           <BlogCategoryFilter
-            categories={blogCategories}
+            categories={categories}
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
           />
         </div>
 
-        {filteredPosts.length > 0 ? (
+        {apiError ? (
+          <div className="mt-6 rounded-2xl border border-pink-300/20 bg-pink-300/10 px-5 py-4 text-sm leading-6 text-pink-100">
+            No se pudieron cargar los artículos. Mostrando contenido local de
+            respaldo.
+          </div>
+        ) : null}
+
+        {isLoading ? (
+          <div className="mt-10 rounded-2xl border border-slate-700/70 bg-slate-900/70 p-8 text-center shadow-xl shadow-slate-950/20">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-xl border border-cyan-300/30 bg-cyan-300/10 text-cyan-200">
+              <FileText size={22} />
+            </div>
+            <h2 className="mt-5 text-xl font-semibold text-white">
+              Cargando artículos...
+            </h2>
+          </div>
+        ) : filteredPosts.length > 0 ? (
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {filteredPosts.map((post) => (
               <BlogCard
                 key={post.id}
                 post={post}
-                category={categoryMap[post.categoryId]}
+                category={categoryMap[post.categoryId] ?? { label: post.categoryName }}
               />
             ))}
           </div>
@@ -81,7 +143,7 @@ function BlogPage() {
               <FileText size={22} />
             </div>
             <h2 className="mt-5 text-xl font-semibold text-white">
-              No hay artículos para esta búsqueda
+              No hay artículos disponibles.
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-400">
               Prueba con otra categoría o busca por React, Full Stack, Figma,
