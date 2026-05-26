@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const navigationItems = [
   { label: "Inicio", to: "/" },
@@ -14,6 +15,10 @@ const navigationItems = [
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const accessItem = isAuthenticated
+    ? { label: "Panel", to: "/admin" }
+    : { label: "Acceso", to: "/login" };
 
   const getLinkClassName = ({ isActive }) =>
     [
@@ -48,6 +53,9 @@ function Header() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <NavLink to={accessItem.to} className={getLinkClassName}>
+            {accessItem.label}
+          </NavLink>
           <div className="rounded-full border border-slate-700 bg-slate-950/70 p-1 text-xs font-semibold shadow-lg shadow-slate-950/20">
             <span className="rounded-full bg-cyan-300 px-2 py-1 text-[#081020]">
               ES
@@ -79,6 +87,13 @@ function Header() {
                 {item.label}
               </NavLink>
             ))}
+            <NavLink
+              to={accessItem.to}
+              className={getLinkClassName}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {accessItem.label}
+            </NavLink>
             <div className="mt-3 w-fit rounded-full border border-slate-700 bg-slate-950/70 p-1 text-xs font-semibold">
               <span className="rounded-full bg-cyan-300 px-2 py-1 text-[#081020]">
                 ES
