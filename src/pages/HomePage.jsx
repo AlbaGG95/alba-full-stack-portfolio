@@ -8,11 +8,14 @@ import {
   PenTool,
   Server,
 } from "lucide-react";
+import BlogCard from "../components/blog/BlogCard.jsx";
 import ProfileVisual from "../components/portfolio/ProfileVisual.jsx";
 import ProjectCard from "../components/portfolio/ProjectCard.jsx";
 import Badge from "../components/ui/Badge.jsx";
 import Button from "../components/ui/Button.jsx";
 import SectionHeader from "../components/ui/SectionHeader.jsx";
+import { blogCategories } from "../data/blogCategories.js";
+import { blogPosts } from "../data/blogPosts.js";
 import { profile } from "../data/profile.js";
 import { projects } from "../data/projects.js";
 import { featuredTechnologies } from "../data/skills.js";
@@ -31,6 +34,11 @@ const focusIcons = [Code, Server, Palette];
 
 function HomePage() {
   const featuredProjects = projects.filter((project) => project.featured);
+  const recentPosts = blogPosts.filter((post) => post.featured).slice(0, 3);
+  const categoryMap = blogCategories.reduce((categories, category) => {
+    categories[category.id] = category;
+    return categories;
+  }, {});
 
   return (
     <main>
@@ -132,6 +140,30 @@ function HomePage() {
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {featuredProjects.map((project) => (
               <ProjectCard key={project.title} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-14 lg:px-8 lg:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <SectionHeader
+              eyebrow="Blog técnico"
+              title="Artículos recientes"
+              description="Notas breves sobre decisiones reales de React, Full Stack, Figma y construcción de producto."
+            />
+            <Button to="/blog" variant="secondary" icon={ArrowRight}>
+              Leer blog
+            </Button>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {recentPosts.map((post) => (
+              <BlogCard
+                key={post.id}
+                post={post}
+                category={categoryMap[post.categoryId]}
+              />
             ))}
           </div>
         </div>
