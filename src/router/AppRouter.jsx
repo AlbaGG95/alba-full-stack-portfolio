@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
+import AdminLayout from "../components/admin/AdminLayout.jsx";
 import PublicLayout from "../components/layout/PublicLayout.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import HomePage from "../pages/HomePage.jsx";
@@ -11,6 +12,8 @@ import BlogDetailPage from "../pages/BlogDetailPage.jsx";
 import ContactPage from "../pages/ContactPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import AdminPage from "../pages/AdminPage.jsx";
+import ManagePostsPage from "../pages/ManagePostsPage.jsx";
+import ManageCategoriesPage from "../pages/ManageCategoriesPage.jsx";
 
 function AppRouter() {
   return (
@@ -30,10 +33,14 @@ function AppRouter() {
             path="admin"
             element={
               <ProtectedRoute>
-                <AdminPage />
+                <AdminLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<AdminPage />} />
+            <Route path="posts" element={<ManagePostsPage />} />
+            <Route path="categories" element={<ManageCategoriesPage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

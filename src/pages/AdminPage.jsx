@@ -1,87 +1,127 @@
-import { FileText, FolderOpen, LogOut, Settings } from "lucide-react";
-import { useNavigate } from "react-router";
-import { useAuth } from "../context/AuthContext.jsx";
+import { CheckCircle2, FileText, FolderOpen, ListTodo, RadioTower } from "lucide-react";
+import AdminStatCard from "../components/admin/AdminStatCard.jsx";
 import Badge from "../components/ui/Badge.jsx";
 
-const adminCards = [
+const stats = [
   {
     title: "Artículos",
-    description: "Preparado para gestionar posts del blog en una fase posterior.",
+    value: "Próximo",
+    description: "La gestión completa se conectará al servicio de posts en otra fase.",
     icon: FileText,
+    accent: "cyan",
   },
   {
     title: "Categorías",
-    description: "Espacio reservado para clasificar y mantener categorías.",
+    value: "Próximo",
+    description: "Estructura preparada para clasificar artículos técnicos.",
     icon: FolderOpen,
+    accent: "violet",
   },
   {
-    title: "Configuración",
-    description: "Base privada para futuras opciones del panel.",
-    icon: Settings,
+    title: "Estado del blog",
+    value: "Lectura",
+    description: "El blog público ya puede leer desde API con fallback local.",
+    icon: RadioTower,
+    accent: "pink",
+  },
+  {
+    title: "Próximas tareas",
+    value: "3",
+    description: "CRUD, validaciones y revisión de estados de API.",
+    icon: ListTodo,
+    accent: "cyan",
   },
 ];
 
+const recentActivity = [
+  "Autenticación frontend simulada creada.",
+  "Ruta privada /admin protegida.",
+  "Base visual del panel preparada para futuras gestiones.",
+];
+
+const nextSteps = [
+  "Conectar CRUD de artículos.",
+  "Conectar CRUD de categorías.",
+  "Revisar estados de API.",
+];
+
 function AdminPage() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login", { replace: true });
-  };
-
   return (
-    <main className="px-5 py-14 lg:px-8 lg:py-16">
-      <section className="mx-auto max-w-7xl">
-        <div className="flex flex-col justify-between gap-6 rounded-3xl border border-slate-700/70 bg-slate-900/75 p-6 shadow-2xl shadow-slate-950/30 sm:p-8 lg:flex-row lg:items-end">
+    <div className="space-y-6">
+      <section className="overflow-hidden rounded-3xl border border-slate-700/70 bg-slate-900/75 p-6 shadow-2xl shadow-slate-950/30 sm:p-8">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
             <Badge variant="cyan">Área privada</Badge>
             <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Panel privado
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-              Base protegida del portfolio. El CRUD de posts y categorías se
-              implementará en fases posteriores.
-            </p>
-            <p className="mt-4 text-sm text-slate-500">
-              Sesión demo activa: {user?.email}
+              Área de administración del portfolio para preparar la gestión de
+              artículos y categorías del blog técnico.
             </p>
           </div>
-
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-violet-400/40 bg-slate-950/50 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-cyan-300/60 hover:bg-slate-900/70 hover:text-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-[#081020]"
-          >
-            Cerrar sesión
-            <LogOut size={16} />
-          </button>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {adminCards.map((card) => {
-            const Icon = card.icon;
-
-            return (
-              <article
-                key={card.title}
-                className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20"
-              >
-                <div className="grid h-12 w-12 place-items-center rounded-xl border border-cyan-300/30 bg-cyan-300/10 text-cyan-200">
-                  <Icon size={22} />
-                </div>
-                <h2 className="mt-5 text-xl font-semibold text-white">
-                  {card.title}
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-slate-400">
-                  {card.description}
-                </p>
-              </article>
-            );
-          })}
+          <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-5 py-4 text-sm leading-6 text-cyan-100">
+            Base estructural lista. Sin CRUD real en esta fase.
+          </div>
         </div>
       </section>
-    </main>
+
+      <section className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {stats.map((stat) => (
+          <AdminStatCard key={stat.title} {...stat} />
+        ))}
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+        <article className="rounded-3xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20">
+          <div className="flex items-center gap-3">
+            <div className="grid h-11 w-11 place-items-center rounded-xl border border-violet-300/30 bg-violet-300/10 text-violet-200">
+              <CheckCircle2 size={21} />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-white">
+                Actividad reciente
+              </h2>
+              <p className="text-sm text-slate-500">Datos estáticos seguros</p>
+            </div>
+          </div>
+          <div className="mt-6 space-y-3">
+            {recentActivity.map((activity) => (
+              <div
+                key={activity}
+                className="rounded-2xl border border-slate-800 bg-slate-950/40 px-4 py-3 text-sm leading-6 text-slate-300"
+              >
+                {activity}
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="rounded-3xl border border-slate-700/70 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/20">
+          <div>
+            <h2 className="text-xl font-semibold text-white">
+              Siguientes pasos
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Orden recomendado para avanzar sin mezclar fases.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-3">
+            {nextSteps.map((step, index) => (
+              <div
+                key={step}
+                className="flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-950/40 px-4 py-3"
+              >
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-cyan-300 text-sm font-bold text-[#081020]">
+                  {index + 1}
+                </span>
+                <span className="text-sm font-medium text-slate-200">{step}</span>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+    </div>
   );
 }
 
